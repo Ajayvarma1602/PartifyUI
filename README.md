@@ -1,9 +1,10 @@
 # 🚘 PartifyUI  
 ---
-https://ajayvarma1602.github.io/PartifyUI/
 **PartifyUI** is a fully responsive and animated vehicle parts finder interface, inspired by real-world e-commerce platforms like Partify. Built using HTML, CSS, and vanilla JavaScript, it provides a smooth, modern user experience with dynamic search options, theme toggle, and animated interactions — all without a backend.
 
 ---
+
+**Live Link** - https://ajayvarma1602.github.io/PartifyUI/
 
 ## 🌟 Features
 
