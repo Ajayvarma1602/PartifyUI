@@ -33,10 +33,6 @@ document.addEventListener("DOMContentLoaded", () => {
   showSlides(0); // show the first slide on load
 });
 
-// Optional autoplay
-// setInterval(() => plusSlides(1), 5000);
-
-
 hamburger.addEventListener("click", () => {
   navLinks.classList.toggle("open");
 });
@@ -48,13 +44,6 @@ hamburger.addEventListener("click", () => {
     }
   }
   
-  // function revealForm() {
-  //   const section = document.getElementById("findPartsSection");
-  //   section.classList.remove("hidden");
-  //   section.scrollIntoView({ behavior: "smooth" });
-  // }
-
-
   function revealForm() {
     const formSection = document.getElementById("findPartsSection");
     const recentSection = document.getElementById("recentlyViewedSection");
@@ -68,7 +57,6 @@ hamburger.addEventListener("click", () => {
     }
   }
   
-
 // Toggle FAQ questions when FAQ button is clicked
 // Show FAQ list when FAQ option clicked
 document.querySelector('[data-type="faq"]').addEventListener("click", () => {
@@ -97,7 +85,6 @@ document.querySelector('[data-type="faq"]').addEventListener("click", () => {
   });
   
   
-
   function handleFeedback(choice) {
     const feedbackButtons = document.getElementById('feedbackButtons');
     const feedbackResponse = document.getElementById('feedbackResponse');
@@ -169,7 +156,7 @@ document.getElementById("vinLookupBtn").addEventListener("click", handleVinLooku
 
 function handleVinLookup() {
     const vin = document.getElementById("vinInput").value.trim().toUpperCase();
-  
+
     if (vin.length !== 17) {
       alert("Please enter a valid 17-character VIN.");
       return;
@@ -288,21 +275,6 @@ function updateFormState() {
   submitButton.disabled = !filled;
 }
 
-
-// function updateFormState() {
-//   const filled = yearSelect.value && makeSelect.value && modelSelect.value && productTypeSelect.value;
-//   submitButton.disabled = !filled;
-//   if (filled) {
-//     selectedValues.style.display = 'block';
-//     selectedContent.innerHTML = `
-//       <div>Year: ${yearSelect.value}</div>
-//       <div>Make: ${makeSelect.value}</div>
-//       <div>Model: ${modelSelect.value}</div>
-//       <div>Product: ${productTypeSelect.value}</div>`;
-//   } else {
-//     selectedValues.style.display = 'none';
-//   }
-// }
 function updateFormState() {
   const filled = yearSelect.value && makeSelect.value && modelSelect.value;
   submitButton.disabled = !filled;
@@ -337,7 +309,7 @@ function handleSubmit(e) {
 
   saveToRecentlyViewed({ year, make, model, productType, url });
 
-  // ✅ Open the collection in a new tab
+  //  Open the collection in a new tab
   window.open(url, '_blank');
 }
 
@@ -513,8 +485,10 @@ document.getElementById("backToChat")?.addEventListener("click", () => {
     const vinBtn = document.getElementById('vinTrigger');
     const vinModal = document.getElementById('vinModal');
     const closeVinModal = document.getElementById('closeVinModal');
-    const vinInput = document.getElementById('vinInput');
-    const lookupVinBtn = document.getElementById('lookupVinBtn');
+    const vinInput = document.querySelector('#vinModal #vinInput');
+const lookupVinBtn = document.querySelector('#vinModal #lookupVinBtn');
+    // const vinInput = document.getElementById('vinInput');
+    // const lookupVinBtn = document.getElementById('lookupVinBtn');
   
     // Dummy VIN to vehicle mapping
     const vinMap = {
@@ -542,7 +516,11 @@ document.getElementById("backToChat")?.addEventListener("click", () => {
   
     // Handle VIN lookup
     lookupVinBtn?.addEventListener('click', () => {
+      alert(`Looking up VIN: ${vinInput.value}`);
+
+
       const vin = vinInput.value.trim().toUpperCase();
+
       const decoded = vinMap[vin];
   
       if (!decoded) {
@@ -580,9 +558,6 @@ document.getElementById("backToChat")?.addEventListener("click", () => {
   });
   
 
-
-  // In script.js, REPLACE the old modal 'DOMContentLoaded' listeners with this:
-
 document.addEventListener('DOMContentLoaded', () => {
     // --- Logic for the License Plate Form ---
     const stateSelect = document.getElementById('stateSelect');
@@ -601,21 +576,19 @@ document.addEventListener('DOMContentLoaded', () => {
       alert(`Vehicle added for plate: ${state} - ${plate}`);
     });
 
-    // --- Logic for the VIN Form ---
-    const vinInputMain = document.getElementById('vinInputMain');
-    const lookupVinBtnMain = document.getElementById('lookupVinBtnMain');
-
-    vinInputMain?.addEventListener('input', () => {
-      lookupVinBtnMain.disabled = vinInputMain.value.trim().length !== 17;
-    });
 
     lookupVinBtnMain?.addEventListener('click', () => {
+
       const vin = vinInputMain.value.trim().toUpperCase();
+      alert("Looking up VIN...");
+
       const vinMap = {
         "1C6RR7KT9CS123456": { year: "2012", make: "RAM", model: "1500" },
         "4T1BF1FK7FU123456": { year: "2015", make: "Toyota", model: "Camry" },
         "2T1BURHE5HC765432": { year: "2017", make: "Toyota", model: "Corolla" }
       };
+
+
       const decoded = vinMap[vin];
 
       if (!decoded) {
@@ -649,7 +622,7 @@ const enterYearMakeModelBtn = document.querySelector(".quick-search-buttons butt
 
 // Show modal when "Enter Year/Make/Model" is clicked
 enterYearMakeModelBtn?.addEventListener("click", () => {
-  // ✅ Reset dropdowns and values
+  //  Reset dropdowns and values
   yearSelect.innerHTML = '<option value="">Select Year</option>';
   makeSelect.innerHTML = '<option value="">Select Make</option>';
   modelSelect.innerHTML = '<option value="">Select Model</option>';
@@ -666,10 +639,10 @@ enterYearMakeModelBtn?.addEventListener("click", () => {
   productTypeSelect.value = '';
   submitButton.disabled = true;
 
-  // ✅ Repopulate year dropdown so user can begin selecting again
+  //  Repopulate year dropdown so user can begin selecting again
   populateYears();
 
-  // ✅ Show modal and prevent background scroll
+  // Show modal and prevent background scroll
   findPartsModal.classList.remove("hidden");
   document.body.style.overflow = "hidden";
 });
@@ -689,3 +662,23 @@ window.addEventListener("click", (e) => {
     document.body.style.overflow = "auto";
   }
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+    const counters = document.querySelectorAll(".stat-number[data-target]");
+    counters.forEach(counter => {
+      const target = +counter.getAttribute("data-target");
+      let count = 0;
+      const update = () => {
+        const increment = target / 60;
+        if (count < target) {
+          count += increment;
+          counter.innerText = Math.ceil(count) + "+";
+          requestAnimationFrame(update);
+        } else {
+          counter.innerText = target + "+";
+        }
+      };
+      update();
+    });
+  });
+

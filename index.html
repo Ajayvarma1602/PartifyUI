@@ -13,7 +13,7 @@
   <header class="navbar">
     <div class="container">
       <!-- Brand Logo -->
-      <div class="logo">Partify</div>
+      <a href="#" class="logo">Partify</a>
 
       <!-- Navigation Links -->
       <nav class="nav-links" id="navLinks">
@@ -50,7 +50,7 @@
   </header>
 
   <!--  Hero Section with Animated Content and Statistics -->
-  <!-- 🔄 Hero + Carousel Unified Section -->
+  <!--  Hero + Carousel Unified Section -->
 <section class="hero-carousel">
   <div class="carousel-slide active">
     <div class="hero-content">
@@ -61,41 +61,38 @@
       </p>
 
       <div class="stats-grid">
-        <div class="stat-card slide-up">
-          <div class="stat-number">25,000+</div>
-          <div class="stat-label">Quality Parts</div>
+        <div class="stats-row">
+          <div class="stat-card glow animate-top">
+            <div class="stat-icon">🔧</div>
+            <div class="stat-number" data-target="25000">0</div>
+            <div class="stat-label">Quality Parts</div>
+          </div>
+          <div class="stat-card glow animate-top">
+            <div class="stat-icon">🚗</div>
+            <div class="stat-number" data-target="500">0</div>
+            <div class="stat-label">Vehicle Models</div>
+          </div>
         </div>
-        <div class="stat-card slide-up">
-          <div class="stat-number">500+</div>
-          <div class="stat-label">Vehicle Models</div>
-        </div>
-        <div class="stat-card slide-up">
-          <div class="stat-number">24/7</div>
-          <div class="stat-label">Support</div>
-        </div>
-        <div class="live-stats">
-          <span class="stat-label">Parts viewed today:</span>
-          <span class="live-counter" id="liveCounter">2,450</span>
+      
+        <div class="stats-row">
+          <div class="stat-card glow animate-bottom">
+            <div class="stat-icon">📞</div>
+            <div class="stat-number">24/7</div>
+            <div class="stat-label">Support</div>
+          </div>
+          <div class="stat-card glow animate-bottom">
+            <div class="stat-icon">👁️</div>
+            <div class="stat-number" data-target="2450">0</div>
+            <div class="stat-label">Parts viewed today</div>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
-
-  <div class="carousel-slide">
-    <img src="images/image1.jpeg" alt="Cool Down Your Ride" />
-  </div>
- 
-
-  <!-- Navigation Arrows -->
-  <a class="carousel-prev" onclick="plusSlides(-1)">❮</a>
-  <a class="carousel-next" onclick="plusSlides(1)">❯</a>
+      
+  </div>  
 </section>
 
-<!-- 🔄 Carousel Section -->
 
-
-
-<!-- 🚗 Quick Vehicle Search Section -->
+<!--  Quick Vehicle Search Section -->
 <section class="quick-vehicle-search">
   <div class="quick-search-container">
     <div class="quick-search-icon">
@@ -120,7 +117,6 @@
   </div>
 </section>
 
-</section>
 
 
 <div class="main-content">
@@ -132,7 +128,6 @@
       </p>
     </div>
   
-    <!-- 🛠️ Cascading Form: Hidden by Default -->
     <!-- 🔧 Year/Make/Model Modal -->
 <div id="findPartsModal" class="modal hidden">
   <div class="modal-content form-style">
@@ -183,25 +178,13 @@
   </div>
 </div>
 
-  
-      <!-- Output: Selected Vehicle Display -->
-      <!-- <div id="selectedValues" class="selected-values" style="display: none;">
-        <h3>Selected:</h3>
-        <div id="selectedContent"></div>
-      </div> -->
-  
-  <!-- 🕘 Recently Viewed Section -->
-  <!-- <section class="recently-viewed" id="recentlyViewed">
-    <h2>Recently Viewed</h2>
-    <ul id="recentList" class="recent-list"></ul>
-  </section> -->
 
   <section class="recently-viewed hidden fade-in" id="recentlyViewedSection">
     <h2>Recently Viewed</h2>
     <ul id="recentList" class="recent-list"></ul>
   </section>
   
-  <!-- 🌟 Features Grid -->
+  <!-- Features Grid -->
   <div class="features-grid">
     <div class="feature-card slide-up">
       <div class="feature-icon quality">✓</div>
@@ -225,7 +208,7 @@
     </div>
   </div>
 
-  <!-- 🎁 Special Offer Section -->
+  <!-- Special Offer Section -->
   <section class="deal-section">
     <h2>🎁 Special Offer</h2>
     <button class="reveal-deal-btn" onclick="revealDeal()">Reveal Deal</button>
@@ -353,7 +336,7 @@
     <div id="feedbackResponse" class="hidden"></div>
   </div>
 
-  <!-- 📜 Script Imports -->
+  <!-- Script Imports -->
   <script src="data.js"></script>
   <script src="script.js"></script>
 <!-- License Plate Modal -->
@@ -397,9 +380,3 @@
 
 </body>
 </html>
-
-
-
-
-
-
