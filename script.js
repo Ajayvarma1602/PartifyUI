@@ -30,7 +30,7 @@ function plusSlides(n) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  showSlides(0); // show the first slide on load
+  showSlides(0); // show the first slides on load
 });
 
 hamburger.addEventListener("click", () => {
