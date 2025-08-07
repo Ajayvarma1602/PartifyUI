@@ -34,6 +34,8 @@ body {
 }
 
 
+
+
 /* === THEME MODE SETTINGS === */
 [data-theme="light"] {
   background-color: var(--bg-light);
@@ -142,6 +144,7 @@ to { opacity: 1; }
   75% { color: #60a5fa; }    /* blue-400 */
   100% { color: #f87171; }   /* back to red */
 }
+
 
 .stat-number,
 .stat-label,
@@ -802,8 +805,8 @@ stroke: #111827; /* Dark gray or black */
 }
 
 .custom-footer {
-  background-color: #0B1224;
-  color: #ffffff;
+  background: linear-gradient(to bottom right, #1f2937, #111827); 
+   color: #ffffff;
   padding: 60px 30px 20px;
   font-family: 'Segoe UI', sans-serif;
 }
@@ -825,6 +828,8 @@ footer {
   margin: 0 auto;
   width: 100%;
 }
+
+
 
 
 .footer-container {
@@ -922,6 +927,7 @@ footer {
   align-items: center;
   margin-top: 10px;
   justify-content: center;
+  
 }
 
 .social-icons a img {
@@ -939,14 +945,21 @@ footer {
 /* 🌞 Light Theme Footer */
 [data-theme="light"] .footer {
 background: #f9fafb;
-color: #1f2937;
+/* color: #1f2937; */
 }
+
+[data-theme="light"] .footer-container {
+  background: #f9fafb;
+
+  }
+
+
 [data-theme="light"] .footer-column h3,
 [data-theme="light"] .footer-column h2 {
 color: #dc2626; /* Match red theme */
 }
 [data-theme="light"] .footer-column ul li a {
-color: #374151;
+color: #535455;
 }
 [data-theme="light"] .footer-column ul li a:hover {
 color: #dc2626;
@@ -963,18 +976,34 @@ filter: grayscale(0%);
 }
 
 
+
+.stat-box {
+  background: var(--card-bg);
+  border-radius: 12px;
+  padding: 40px 20px;
+  text-align: center;
+  box-shadow: 0 0 10px rgba(0,0,0,0.15);
+  transition: transform 0.3s ease;
+}
+
+.stat-box:hover {
+  transform: translateY(-5px);
+}
+
+
 .stats-grid {
+
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 25px;
-  margin-top: 40px;
-  padding: 0 5%;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px; /* This adds spacing between the boxes */
+  padding: 40px 20px;
 }
 
 .stat-card {
   background: rgba(255, 255, 255, 0.05);
   border-radius: 12px;
   padding: 30px 20px;
+  margin-bottom: 20px;
   text-align: center;
   position: relative;
   box-shadow: 0 4px 30px rgba(0,0,0,0.1);
@@ -2497,4 +2526,41 @@ html[data-theme='light'] .social-icons img {
 }
 .social-icons img {
   transition: filter 0.4s ease;
+}
+
+
+
+/* 🌞 Light Mode Footer Fix - Ensure Text and Icons are Dark & Visible */
+[data-theme="light"] .footer,
+[data-theme="light"] .footer-container,
+[data-theme="light"] .footer-section,
+[data-theme="light"] .footer-bottom,
+[data-theme="light"] .promo,
+[data-theme="light"] .footer-section ul li a,
+[data-theme="light"] .footer-section h4,
+[data-theme="light"] .promo h3,
+[data-theme="light"] .promo p,
+[data-theme="light"] .footer-bottom p,
+[data-theme="light"] .contact p,
+[data-theme="light"] .contact p strong,
+[data-theme="light"] .coupon-form input,
+[data-theme="light"] .coupon-form button {
+  color: #1f2937 !important;  /* Dark Gray Text */
+  background-color: #ffffff !important; /* White BG if needed */
+  filter: none !important;
+}
+
+/* 💬 Social Icons in Light Mode - Make Dark */
+[data-theme="light"] .social-icons a img {
+  filter: invert(0%) grayscale(0%) brightness(0.3) !important;
+}
+
+/* 🔴 Adjust red buttons and titles */
+[data-theme="light"] .promo h3,
+[data-theme="light"] .footer-section h4 {
+  color: #dc2626 !important;
+}
+[data-theme="light"] .coupon-form button {
+  background: #dc2626 !important;
+  color: #fff !important;
 }
