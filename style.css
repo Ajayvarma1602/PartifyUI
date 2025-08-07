@@ -45,6 +45,20 @@
     --navbar-text: #ffffff;   /* White text */
   }
   
+  #addVehicleBtn {
+    background: linear-gradient(to right, #e74c3c, #c0392b); /* Red gradient */
+    color: #fff;
+    font-weight: bold;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  
+  #addVehicleBtn:hover {
+    background: linear-gradient(to right, #ff5e4d, #c0392b); /* Slightly brighter on hover */
+  }
   
   /* === GLOBAL RESET === */
   * {
@@ -92,15 +106,70 @@
   margin: auto;
   color: white;
 }
-
 .hero-carousel {
   position: relative;
-  max-width: 1000px;
-  margin: 40px auto;
+  width: 100%;
+  max-width: 1200px;
+  height: 350px; /* ✅ Smaller height */
+  margin: 0 auto; /* center the carousel */
   overflow: hidden;
   border-radius: 12px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
 }
+
+.carousel-slide {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.carousel-slide.active {
+  display: block;
+  animation: fade 0.5s ease-in-out;
+}
+
+.carousel-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* makes sure the image fills nicely */
+  border-radius: 12px;
+}
+
+.hero-content {
+  padding: 20px;
+  color: white;
+}
+
+/* Navigation Arrows */
+.carousel-prev,
+.carousel-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.5rem;
+  color: white;
+  background: rgba(0,0,0,0.4);
+  padding: 8px 12px;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.carousel-prev {
+  left: 10px;
+}
+
+.carousel-next {
+  right: 10px;
+}
+
+@keyframes fade {
+  from { opacity: 0.6; }
+  to { opacity: 1; }
+}
+
+
 .hero-carousel.full-width-carousel {
   width: 100%;
   max-width: none;
@@ -108,6 +177,32 @@
   border-radius: 0;
   box-shadow: none;
 }
+
+/* Hero section text for light theme */
+[data-theme="light"] .hero-title,
+[data-theme="light"] .hero-subtitle,
+[data-theme="light"] .hero-description {
+  color: #222; /* Dark gray for visibility */
+  text-shadow: none;
+}
+[data-theme="dark"] .hero-title,
+[data-theme="dark"] .hero-subtitle,
+[data-theme="dark"] .hero-description {
+  color: #fff;
+  text-shadow: 0 2px 6px rgba(0,0,0,0.6);
+}
+/* Stats section visibility fix in Light Mode */
+[data-theme="light"] .stat-number,
+[data-theme="light"] .stat-label,
+[data-theme="light"] .live-counter {
+  color: #222; /* Dark color for readability */
+}
+[data-theme="dark"] .stat-number,
+[data-theme="dark"] .stat-label,
+[data-theme="dark"] .live-counter {
+  color: #fff;
+}
+
 
 .carousel-slide {
   display: none;
@@ -636,15 +731,15 @@
     background: #374151;
   }
   
-  .footer {
+  /* .footer {
     background: #0f172a;
     color: #f8fafc;
-    padding: 3rem 2rem 1.5rem; /* <-- already gives left/right padding */
+    padding: 3rem 2rem 1.5rem; /* <-- already gives left/right padding 
   }
   .footer-inner {
     max-width: 1280px;
     margin: 0 auto;
-    padding: 0 1rem; /* Optional: add extra padding inside max-width */
+    padding: 0 1rem; /* Optional: add extra padding inside max-width 
   }
   .footer-container {
     display: grid;
@@ -715,21 +810,169 @@
     padding-top: 1rem;
     font-size: 0.875rem;
   }
-  
-  .social-icons a {
-    margin-left: 12px;
-    display: inline-block;
-    transition: transform 0.3s ease;
+  .social-icons {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    margin-top: 10px;
+    justify-content: center;
   }
   
   .social-icons a img {
-    width: 24px;
-    height: 24px;
+    width: 28px;
+    height: 28px;
+    filter: invert(1); /* Light/Dark theme fix 
+    transition: transform 0.3s ease;
   }
   
-  .social-icons a:hover {
+  .social-icons a:hover img {
     transform: scale(1.2);
   }
+ */
+
+
+
+
+
+
+
+
+  .custom-footer {
+    background-color: #0B1224;
+    color: #ffffff;
+    padding: 60px 30px 20px;
+    font-family: 'Segoe UI', sans-serif;
+  }
+
+  footer {
+    background-color: #0a0f1c;
+    color: #fff;
+    padding: 60px 40px 20px;
+    margin: 0;
+    width: 100%;
+  }
+  
+  .footer-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 0 100px; /* ⬅️ Increased horizontal padding */
+    max-width: 1600px; /* ⬅️ Slightly increased max width */
+    margin: 0 auto;
+    width: 100%;
+  }
+  
+  
+  
+  .footer-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 40px;
+    max-width: 1200px;
+    margin: auto;
+  }
+  
+  .footer-section {
+    flex: 1 1 220px;
+    min-width: 220px;
+  }
+  
+  .footer-section h4 {
+    color: #FFD700;
+    margin-bottom: 15px;
+    font-size: 1.2rem;
+  }
+  
+  .footer-section ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .footer-section ul li {
+    margin: 8px 0;
+  }
+  
+  .footer-section ul li a {
+    color: #ccc;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  
+  .footer-section ul li a:hover {
+    color: #fff;
+  }
+  
+  .promo h3 {
+    color: #FFD700;
+    font-size: 1.3rem;
+    margin-bottom: 10px;
+  }
+  
+  .promo p {
+    margin-bottom: 15px;
+    font-size: 0.95rem;
+    color: #ccc;
+  }
+  
+  .coupon-form {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  
+  .coupon-form input {
+    flex: 1;
+    padding: 10px;
+    border-radius: 6px;
+    border: none;
+    font-size: 0.95rem;
+  }
+  
+  .coupon-form button {
+    background: #e53935;
+    color: white;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.3s ease;
+  }
+  
+  .coupon-form button:hover {
+    background: #c62828;
+  }
+  
+  .footer-bottom {
+    border-top: 1px solid #333;
+    margin-top: 30px;
+    padding-top: 20px;
+    text-align: center;
+    font-size: 0.85rem;
+    color: #aaa;
+  }
+  
+  .social-icons {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    margin-top: 10px;
+    justify-content: center;
+  }
+  
+  .social-icons a img {
+    width: 28px;
+    height: 28px;
+    filter: invert(1); 
+    transition: transform 0.3s ease;
+  }
+  
+  .social-icons a:hover img {
+    transform: scale(1.2);
+  
+  }
+  
   /* 🌞 Light Theme Footer */
 [data-theme="light"] .footer {
   background: #f9fafb;
@@ -1701,9 +1944,55 @@
   align-items: center;
   z-index: 9999;
 }
+.modal-overlay {
+  background-color: rgba(0, 0, 0, 0.6); /* Optional for dim effect */
+}
+/* Force modal background dark */
+
+/* Optional: Button styles (to match VIN m*/
+
+/* ✅ Light mode: fix text visibility inside Find Your Parts modal */
+[data-theme="light"] #findPartsModal h2,
+[data-theme="light"] #findPartsModal p,
+[data-theme="light"] #findPartsModal label,
+[data-theme="light"] #findPartsModal .form-title,
+[data-theme="light"] #findPartsModal .form-subtitle {
+  color: #111 !important;
+}
+
+#findPartsModal .modal-content {
+  background-color: #2c2c2c !important;
+  color: #ffffff !important;
+}
+
+#findPartsModal .form-title,
+#findPartsModal .form-subtitle {
+  color: #ffffff !important;
+}
+/* ✅ Light Mode: fix the Find Your Parts modal background */
+[data-theme="light"] #findPartsModal,
+[data-theme="light"] #findPartsModal .modal-content {
+  background-color: #ffffff !important;
+  color: #111 !important;
+}
+
+/* ✅ Input/select styling to match */
+[data-theme="light"] #findPartsModal input,
+[data-theme="light"] #findPartsModal select {
+  background-color: #f9f9f9 !important;
+  color: #111 !important;
+  border: 1px solid #ccc;
+}
+
+/* ✅ Ensure disabled fields look correct */
+[data-theme="light"] #findPartsModal input:disabled,
+[data-theme="light"] #findPartsModal select:disabled {
+  background-color: #e0e0e0 !important;
+  color: #888 !important;
+}
 
 .modal-content {
-  background: #fff;
+  /* background: #2b2b2b; */
   padding: 2rem;
   border-radius: 12px;
   width: 90%;
@@ -1801,6 +2090,144 @@
 .hidden {
   display: none;
 }
+/* General modal text styles */
+.modal h2,
+.modal .form-title {
+  font-weight: 700;
+}
+
+.modal .form-subtitle,
+.modal p {
+  font-weight: 400;
+}
+
+/* === Light Mode === */
+/* Light Mode Modal Background Fix */
+/* 🔧 Light Mode: Modal Background Fix */
+[data-theme="light"] .modal-content {
+  background-color: #ffffff !important;
+  color: #111 !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+}
+
+/* 🔧 Dark Mode: Modal Background */
+[data-theme="dark"] .modal-content {
+  background-color: #1e1e1e !important;
+  color: #fff !important;
+}
+
+
+
+[data-theme="light"] .modal h2,
+[data-theme="light"] .modal .form-title {
+  color: #111 !important;
+}
+
+[data-theme="light"] .modal .form-subtitle,
+[data-theme="light"] .modal p {
+  color: #333 !important;
+}
+
+[data-theme="light"] .modal label {
+  color: #111 !important;
+}
+
+[data-theme="light"] .modal input,
+[data-theme="light"] .modal select {
+  background-color: #f9f9f9;
+  color: #111;
+  border: 1px solid #ccc;
+}
+
+/* === Dark Mode === */
+[data-theme="dark"] .modal-content,
+[data-theme="dark"] #findPartsModal {
+  background-color: #1e1e1e;
+  color: #eee;
+}
+
+[data-theme="dark"] .modal h2,
+[data-theme="dark"] .modal .form-title {
+  color: #fff !important;
+}
+
+[data-theme="dark"] .modal .form-subtitle,
+[data-theme="dark"] .modal p {
+  color: #ccc !important;
+}
+
+[data-theme="dark"] .modal label {
+  color: #ddd !important;
+}
+
+[data-theme="dark"] .modal input,
+[data-theme="dark"] .modal select {
+  background-color: #2a2a2a;
+  color: #fff;
+  border: 1px solid #555;
+}
+
+[data-theme="dark"] .modal input:disabled,
+[data-theme="dark"] .modal select:disabled {
+  background-color: #333;
+  color: #888;
+}
+
+/* Applies to modal headers and subtext */
+.modal .form-title,
+.modal .form-subtitle,
+.modal h2,
+.modal p {
+  color: #111 !important; /* Or use #1a1a1a for slightly darker black */
+}
+
+/* Light Mode */
+[data-theme="light"] .modal .form-title,
+[data-theme="light"] .modal .form-subtitle,
+[data-theme="light"] .modal h2,
+[data-theme="light"] .modal p {
+  color: #111 !important;
+}
+
+/* Dark Mode */
+[data-theme="dark"] .modal .form-title,
+[data-theme="dark"] .modal .form-subtitle,
+[data-theme="dark"] .modal h2,
+[data-theme="dark"] .modal p {
+  color: #fff !important;
+}
+
+
+/* DARK THEME STYLES FOR MODAL */
+[data-theme="dark"] #findPartsModal {
+  background-color: #1e1e1e;
+  color: #ffffff;
+}
+/* Light mode modal subtitle visibility fix */
+[data-theme="light"] .modal p {
+  color: #333 !important;  /* or #444 for slightly lighter text */
+}
+[data-theme="light"] .modal label,
+[data-theme="light"] .modal h2 {
+  color: #111 !important;
+}
+
+
+/* Fix input & select styles in dark mode */
+[data-theme="dark"] #findPartsModal select,
+[data-theme="dark"] #findPartsModal input {
+  background-color: #2a2a2a;
+  color: #ffffff;
+  border: 1px solid #555;
+}
+
+[data-theme="dark"] #findPartsModal select:disabled,
+[data-theme="dark"] #findPartsModal input:disabled {
+  color: #888;
+  background-color: #333;
+}
+
 
 /* 🌙 Optional: Dark theme modal support */
 [data-theme="dark"] .modal-content {
@@ -1824,6 +2251,24 @@
 [data-theme="dark"] .modal-form input::placeholder {
   color: #bbb;
 }
+
+/* Light theme adjustments */
+[data-theme="light"] .modal {
+  background-color: #ffffff;
+  color: #111111;
+}
+
+[data-theme="light"] .modal select,
+[data-theme="light"] .modal input {
+  background-color: #f9f9f9;
+  color: #111111;
+  border: 1px solid #ccc;
+}
+
+[data-theme="light"] .modal select:disabled {
+  color: #888888;
+}
+
 #lookupVinBtn {
   background: linear-gradient(to right, #d32f2f, #c62828);
   color: white;
@@ -1839,4 +2284,103 @@
 
 #lookupVinBtn:hover:enabled {
   background: linear-gradient(to right, #b71c1c, #c62828);
+}
+/* 🔧 Modal Styling for Find Parts */
+#findPartsModal.modal {
+  position: fixed;
+  z-index: 1001;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+/* Modal Content Box */
+#findPartsModal .modal-content {
+  background-color: var(--modal-bg, #fff);
+  padding: 30px;
+  border-radius: 10px;
+  width: 100%;
+  max-width: 600px;
+  color: var(--text-color);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+/* Form Styling Inside Modal */
+#findPartsModal .form-group {
+  margin-bottom: 20px;
+}
+
+#findPartsModal .form-label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 6px;
+}
+
+#findPartsModal .form-select {
+  width: 100%;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+}
+
+#findPartsModal .submit-button {
+  width: 100%;
+  padding: 12px;
+  background-color: #0074D9;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 15px;
+}
+
+#findPartsModal .submit-button:disabled {
+  background-color: #aaa;
+  cursor: not-allowed;
+}
+
+/* Close Button */
+#findPartsModal .close-btn {
+  position: absolute;
+  right: 20px;
+  top: 15px;
+  font-size: 28px;
+  cursor: pointer;
+  color: #999;
+}
+
+/* Hidden class to hide modal */
+.hidden {
+  display: none;
+}
+/* Fix modal heading and subtitle for dark mode */
+[data-theme="dark"] .form-header .form-title {
+  color: #111 !important; /* Darker title for contrast against white */
+}
+
+[data-theme="dark"] .form-header .form-subtitle {
+  color: #333 !important; /* Slightly darker subtitle */
+}
+[data-theme="dark"] .form-container {
+  background-color: #fff;
+  color: #111;
+}
+.form-header .form-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #111;
+}
+
+.form-header .form-subtitle {
+  font-size: 16px;
+  color: #555;
 }

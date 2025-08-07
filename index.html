@@ -82,14 +82,9 @@
   </div>
 
   <div class="carousel-slide">
-    <img src="images/image1.jpg" alt="Cool Down Your Ride" />
+    <img src="images/image1.jpeg" alt="Cool Down Your Ride" />
   </div>
-  <div class="carousel-slide">
-    <img src="images/banner2.jpg" alt="New Arrivals" />
-  </div>
-  <div class="carousel-slide">
-    <img src="images/banner3.jpg" alt="Special Offers" />
-  </div>
+ 
 
   <!-- Navigation Arrows -->
   <a class="carousel-prev" onclick="plusSlides(-1)">❮</a>
@@ -138,54 +133,62 @@
     </div>
   
     <!-- 🛠️ Cascading Form: Hidden by Default -->
-    <div id="findPartsSection" class="form-container slide-up hidden">
+    <!-- 🔧 Year/Make/Model Modal -->
+<div id="findPartsModal" class="modal hidden">
+  <div class="modal-content form-style">
+    <span class="close-btn" id="closeFindPartsModal">&times;</span>
+
+    <div id="findPartsSection">
       <div class="form-header">
         <h2 class="form-title">Find Your Parts</h2>
         <p class="form-subtitle">Select your vehicle details to find compatible parts</p>
       </div>
-  
+
       <form id="partsFinderForm">
         <!-- Dropdown: Year -->
         <div class="form-group">
           <label for="year" class="form-label">Year</label>
           <select id="year" class="form-select"><option value="">Select Year</option></select>
         </div>
-  
+
         <!-- Dropdown: Make -->
         <div class="form-group">
           <label for="make" class="form-label">Make</label>
           <select id="make" class="form-select" disabled><option value="">Select Make</option></select>
         </div>
-  
+
         <!-- Dropdown: Model -->
         <div class="form-group">
           <label for="model" class="form-label">Model</label>
           <select id="model" class="form-select" disabled><option value="">Select Model</option></select>
         </div>
-  
+
         <!-- Dropdown: Product Type -->
         <div class="form-group">
           <label for="productType" class="form-label">Product Type</label>
           <select id="productType" class="form-select" disabled><option value="">Select Product Type</option></select>
         </div>
-  
+
         <!-- Optional VIN Input -->
         <div class="form-group">
           <label for="vinInput" class="form-label">VIN (optional)</label>
           <input type="text" id="vinInput" class="form-select" placeholder="Enter 17-digit VIN" maxlength="17" />
           <button type="button" id="vinLookupBtn" class="submit-button" style="margin-top: 10px;">Lookup VIN</button>
         </div>
-  
+
         <!-- Final Submit Button -->
         <button type="submit" id="submitButton" class="submit-button" disabled>Find Parts</button>
       </form>
+    </div>
+  </div>
+</div>
+
   
       <!-- Output: Selected Vehicle Display -->
       <!-- <div id="selectedValues" class="selected-values" style="display: none;">
         <h3>Selected:</h3>
         <div id="selectedContent"></div>
       </div> -->
-    </div>
   
   <!-- 🕘 Recently Viewed Section -->
   <!-- <section class="recently-viewed" id="recentlyViewed">
@@ -284,36 +287,30 @@
   </div>
   
   <!-- Footer Section -->
-  <footer class="footer">
-    <div class="footer-inner">
-
+  <footer class="custom-footer">
     <div class="footer-container">
-      <!-- 💸 Coupon Section -->
-      <div class="footer-column coupon">
-        <h2>🎁 $10 Off Your First Order</h2>
+      <div class="footer-section promo">
+        <h3>🎁 <span>$10 Off Your First Order</span></h3>
         <p>Subscribe for exclusive deals & unlock your coupon</p>
-        <div class="coupon-form">
+        <form class="coupon-form">
           <input type="email" placeholder="Enter your email" />
-          <button>Reveal Coupon</button>
-        </div>
+          <button type="submit">Reveal Coupon</button>
+        </form>
       </div>
   
-      <!-- 📚 Info Links -->
-      <div class="footer-column">
-        <h3>Info</h3>
+      <div class="footer-section">
+        <h4>Info</h4>
         <ul>
           <li><a href="#">About Us</a></li>
           <li><a href="#">Contact</a></li>
           <li><a href="#">FAQs</a></li>
           <li><a href="#">Returns & Refunds</a></li>
           <li><a href="#">File a Claim</a></li>
-        
-        
+        </ul>
       </div>
   
-      <!-- 📝 Blog -->
-      <div class="footer-column">
-        <h3>Blog</h3>
+      <div class="footer-section">
+        <h4>Blog</h4>
         <ul>
           <li><a href="#">Install Your Part</a></li>
           <li><a href="#">CAPA vs. Non-CAPA</a></li>
@@ -323,28 +320,27 @@
         </ul>
       </div>
   
-      <!-- 📞 Contact -->
-      <div class="footer-column contact">
-        <h3>Contact</h3>
+      <div class="footer-section contact">
+        <h4>Contact</h4>
         <p><strong>Address:</strong> 27555 College Park Dr, Warren, MI 48088</p>
-        <p><strong>Phone:</strong> <a href="tel:12345678">1-23-456-8297</a></p>
-        <p><strong>Email:</strong> <a href="mailto:info@partify.store">info@partify.gmail</a></p>
+        <p><strong>Phone:</strong> <a href="tel:1234568297">1-23-456-8297</a></p>
+        <p><strong>Email:</strong> <a href="mailto:info@partify.gmail">info@partify.gmail</a></p>
         <p><strong>Hours:</strong> Mon–Fri 9AM–5PM ET</p>
       </div>
     </div>
   
-    <!-- 🔗 Bottom Bar -->
     <div class="footer-bottom">
       <p>© 2025 Partify • Powered by Shopify</p>
       <div class="social-icons">
-        <a href="#"><img src="https://www.svgrepo.com/show/521711/mail.svg" alt="Email" /></a>
-        <a href="#"><img src="https://www.svgrepo.com/show/452196/facebook.svg" alt="Facebook" /></a>
-        <a href="#"><img src="https://www.svgrepo.com/show/452229/instagram.svg" alt="Instagram" /></a>
-        <a href="#"><img src="https://www.svgrepo.com/show/448255/tiktok.svg" alt="TikTok" /></a>
-        <a href="#"><img src="https://www.svgrepo.com/show/452046/youtube.svg" alt="YouTube" /></a>
+        <a href="#"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/maildotru.svg" alt="Email" /></a>
+        <a href="#"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/facebook.svg" alt="Facebook" /></a>
+        <a href="#"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/instagram.svg" alt="Instagram" /></a>
+        <a href="#"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/tiktok.svg" alt="TikTok" /></a>
+        <a href="#"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/youtube.svg" alt="YouTube" /></a>
       </div>
     </div>
   </footer>
+  
   
 
   <!-- 🗣️ Feedback Widget -->

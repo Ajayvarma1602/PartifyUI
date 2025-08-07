@@ -16,21 +16,22 @@ const closeChat = document.getElementById("closeChat");
 const hamburger = document.getElementById("hamburger");
 const navLinks = document.getElementById("navLinks");
 
-let currentSlide = 0;
+let slideIndex = 0;
 const slides = document.querySelectorAll(".carousel-slide");
 
-function showSlide(index) {
-  slides.forEach((slide, i) => {
-    slide.classList.toggle("active", i === index);
-  });
+function showSlides(n) {
+  slides.forEach(slide => slide.classList.remove("active"));
+  slideIndex = (n + slides.length) % slides.length;
+  slides[slideIndex].classList.add("active");
 }
 
 function plusSlides(n) {
-  currentSlide += n;
-  if (currentSlide >= slides.length) currentSlide = 0;
-  if (currentSlide < 0) currentSlide = slides.length - 1;
-  showSlide(currentSlide);
+  showSlides(slideIndex + n);
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+  showSlides(0); // show the first slide on load
+});
 
 // Optional autoplay
 // setInterval(() => plusSlides(1), 5000);
@@ -302,26 +303,44 @@ function updateFormState() {
 //     selectedValues.style.display = 'none';
 //   }
 // }
+function updateFormState() {
+  const filled = yearSelect.value && makeSelect.value && modelSelect.value;
+  submitButton.disabled = !filled;
+}
+
+
 function handleSubmit(e) {
-    e.preventDefault();
-    const year = yearSelect.value;
-    const make = makeSelect.value;
-    const model = modelSelect.value;
-    const productType = productTypeSelect.value;
-    const match = partsData.find(item =>
-      item.year === year &&
-      item.make === make &&
-      item.model === model &&
-      item.productType === productType
-    );
-    if (match) {
-      saveToRecentlyViewed({ year, make, model, productType, url: match.url });
-      window.open(match.url, '_blank');
-    } else {
-      alert('No matching parts found!');
-    }
+  e.preventDefault();
+
+  // Hide modal and enable page scroll
+  document.getElementById("findPartsModal").classList.add("hidden");
+  document.body.style.overflow = "auto";
+
+  const year = yearSelect.value.trim();
+  const make = makeSelect.value.trim();
+  const model = modelSelect.value.trim();
+  const productType = productTypeSelect.value.trim();
+
+  if (!year || !make || !model) {
+    alert("Please select Year, Make, and Model.");
+    return;
   }
-  
+
+  const formattedMake = make.toLowerCase().replace(/\s+/g, '-');
+  const formattedModel = model.toLowerCase().replace(/\s+/g, '-');
+  let url = `https://partifyusa.com/collections/${year}-${formattedMake}-${formattedModel}`;
+
+  if (productType) {
+    const encodedProduct = encodeURIComponent(productType);
+    url += `?filter.p.product_type=${encodedProduct}`;
+  }
+
+  saveToRecentlyViewed({ year, make, model, productType, url });
+
+  // ✅ Open the collection in a new tab
+  window.open(url, '_blank');
+}
+
   // ------------------ Recently Viewed ------------------
   function saveToRecentlyViewed(item) {
     const key = "recentlyViewedParts";
@@ -560,3 +579,113 @@ document.getElementById("backToChat")?.addEventListener("click", () => {
     });
   });
   
+
+
+  // In script.js, REPLACE the old modal 'DOMContentLoaded' listeners with this:
+
+document.addEventListener('DOMContentLoaded', () => {
+    // --- Logic for the License Plate Form ---
+    const stateSelect = document.getElementById('stateSelect');
+    const plateInput = document.getElementById('plateInput');
+    const addVehicleBtn = document.getElementById('addVehicleBtn');
+
+    [stateSelect, plateInput].forEach(el =>
+      el?.addEventListener('input', () => {
+        addVehicleBtn.disabled = !(stateSelect.value && plateInput.value.trim().length > 2);
+      })
+    );
+  
+    addVehicleBtn?.addEventListener('click', () => {
+      const state = stateSelect.value;
+      const plate = plateInput.value.trim().toUpperCase();
+      alert(`Vehicle added for plate: ${state} - ${plate}`);
+    });
+
+    // --- Logic for the VIN Form ---
+    const vinInputMain = document.getElementById('vinInputMain');
+    const lookupVinBtnMain = document.getElementById('lookupVinBtnMain');
+
+    vinInputMain?.addEventListener('input', () => {
+      lookupVinBtnMain.disabled = vinInputMain.value.trim().length !== 17;
+    });
+
+    lookupVinBtnMain?.addEventListener('click', () => {
+      const vin = vinInputMain.value.trim().toUpperCase();
+      const vinMap = {
+        "1C6RR7KT9CS123456": { year: "2012", make: "RAM", model: "1500" },
+        "4T1BF1FK7FU123456": { year: "2015", make: "Toyota", model: "Camry" },
+        "2T1BURHE5HC765432": { year: "2017", make: "Toyota", model: "Corolla" }
+      };
+      const decoded = vinMap[vin];
+
+      if (!decoded) {
+        alert("VIN not found in demo database.");
+        return;
+      }
+      
+      // Show and pre-fill the main form
+      showFinder('findPartsSection');
+
+      yearSelect.value = decoded.year;
+      handleYearChange();
+  
+      setTimeout(() => {
+        makeSelect.value = decoded.make;
+        handleMakeChange();
+  
+        setTimeout(() => {
+          modelSelect.value = decoded.model;
+          handleModelChange();
+        }, 300);
+      }, 300);
+    });
+});
+
+
+// 🔧 Modal: Find Your Parts
+const findPartsModal = document.getElementById("findPartsModal");
+const closeFindPartsModal = document.getElementById("closeFindPartsModal");
+const enterYearMakeModelBtn = document.querySelector(".quick-search-buttons button");
+
+// Show modal when "Enter Year/Make/Model" is clicked
+enterYearMakeModelBtn?.addEventListener("click", () => {
+  // ✅ Reset dropdowns and values
+  yearSelect.innerHTML = '<option value="">Select Year</option>';
+  makeSelect.innerHTML = '<option value="">Select Make</option>';
+  modelSelect.innerHTML = '<option value="">Select Model</option>';
+  productTypeSelect.innerHTML = '<option value="">Select Product Type</option>';
+
+  yearSelect.disabled = false;
+  makeSelect.disabled = true;
+  modelSelect.disabled = true;
+  productTypeSelect.disabled = true;
+
+  yearSelect.value = '';
+  makeSelect.value = '';
+  modelSelect.value = '';
+  productTypeSelect.value = '';
+  submitButton.disabled = true;
+
+  // ✅ Repopulate year dropdown so user can begin selecting again
+  populateYears();
+
+  // ✅ Show modal and prevent background scroll
+  findPartsModal.classList.remove("hidden");
+  document.body.style.overflow = "hidden";
+});
+
+
+
+// Close modal on 'X' button click
+closeFindPartsModal?.addEventListener("click", () => {
+  findPartsModal.classList.add("hidden");
+  document.body.style.overflow = "auto";
+});
+
+// Optional: Close modal when clicking outside the form
+window.addEventListener("click", (e) => {
+  if (e.target === findPartsModal) {
+    findPartsModal.classList.add("hidden");
+    document.body.style.overflow = "auto";
+  }
+});
