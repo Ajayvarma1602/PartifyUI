@@ -6,6 +6,12 @@
 
 **Live Link** - https://ajayvarma1602.github.io/PartifyUI/
 
+------
+
+**Figma Link** - https://www.figma.com/design/nrUzwpnCiwxvD0OLhxWNqB/Partify?node-id=1-1213&t=l7K4dTA0ea9sRInA-1
+
+------
+
 ## 🌟 Features
 
 - 🌗 **Light/Dark Mode Toggle**  
