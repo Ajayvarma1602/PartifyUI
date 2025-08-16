@@ -1,382 +1,536 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Partify USA - Parts Finder</title>
-  <!-- Link to external CSS's -->
-  <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Partify - Your Car Parts Destination</title>
+    <link rel="stylesheet" href="style.css" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        
+    </style>
 </head>
 <body>
 
-  <!-- 🔝 Top Navigation Bar -->
-  <header class="navbar">
-    <div class="container">
-      <!-- Brand Logo -->
-      <a href="#" class="logo">Partify</a>
+    <!-- Header & Navbar -->
+    <header class="header-bg shadow-md">
+        <nav class="container mx-auto px-4 py-4 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <svg width="150" height="50" viewBox="0 0 150 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <filter id="logo-shadow" x="-50%" y="-50%" width="200%" height="200%">
+                            <feDropShadow dx="2" dy="4" stdDeviation="4" flood-color="rgba(0,0,0,0.2)" />
+                        </filter>
+                    </defs>
+                    <rect width="50" height="50" rx="10" fill="#002d6b" filter="url(#logo-shadow)" />
+                    <path d="M18.8 38.3V11.7H29.3C32.1 11.7 34.4 12.1 36.3 13C38.2 13.9 39.4 15.3 40.1 17.2C40.8 19.1 41.1 21.2 41.1 23.6C41.1 25.9 40.8 28.1 40.1 29.9C39.4 31.8 38.2 33.2 36.3 34.1C34.4 35 32.1 35.5 29.3 35.5H23.5V38.3H18.8ZM23.5 32.8H29.3C31.5 32.8 33.2 32.2 34.3 31.1C35.4 29.9 36 28.2 36 25.9V21.1C36 18.8 35.4 17.1 34.3 15.9C33.2 14.8 31.5 14.2 29.3 14.2H23.5V32.8Z" fill="white"/>
+                    <text x="58" y="32" font-family="'Inter', sans-serif" font-weight="800" font-size="28" fill="var(--text-primary)">partify</text>
+                </svg>
+            </div>
+            <div class="flex-grow flex justify-center lg:ml-20"> <!-- Added lg:ml-20 class -->
+                <div class="relative w-full max-w-2xl hidden lg:block">
+                    <input type="text" placeholder="What are you looking for?" class="w-full pl-12 pr-4 py-3 rounded-full border border-gray-300 focus:outline-none focus:ring-4 focus:ring-blue-200 transition-shadow" style="background-color: var(--bg-card); color: var(--text-primary); border-color: var(--border-primary);">
+                    <svg class="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                </div>
+            </div>
+            <div class="flex items-center space-x-6">
+                <!-- Dynamic Navbar link/button -->
+                <a href="#" id="add-vehicle-nav-link" class="nav-button-style hidden lg:block" style="border: 2px solid var(--accent-blue); color: var(--accent-blue);">Add a Vehicle</a>
+                <div id="selected-vehicle-nav" class="hidden flex items-center space-x-2">
+                    <p class="text-sm font-medium whitespace-nowrap overflow-hidden text-ellipsis" id="navbar-selected-car" style="color: var(--text-secondary);">Shopping for: </p>
+                    <button id="change-vehicle-nav-btn" class="nav-button-style bg-blue-600 text-white text-xs font-semibold py-1 px-3 rounded-full hover:bg-blue-700 transition-colors">
+                        CHANGE
+                    </button>
+                </div>
+                <!-- Dynamic Login/User links -->
+                <div id="auth-links" class="flex items-center space-x-4">
+                    <a href="#" id="login-nav-link" class="nav-button-style hidden lg:block bg-blue-600 text-white">Login</a>
+                    <div id="user-profile-nav" class="hidden flex items-center space-x-2">
+                        <p class="text-sm font-medium hidden lg:block" id="welcome-message" style="color: var(--text-primary);">Welcome, User</p>
+                        <button id="logout-nav-btn" class="nav-button-style bg-red-500 text-white text-xs font-semibold py-1 px-3 rounded-full hover:bg-red-600 transition-colors">Logout</button>
+                    </div>
+                </div>
+                <button id="theme-toggle-btn" class="p-2 rounded-full text-gray-500 hover:text-gray-700 transition-colors">
+                    <svg id="moon-icon" class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>
+                    </svg>
+                    <svg id="sun-icon" class="w-6 h-6 hidden" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="4"/>
+                        <path d="M12 2v2M12 20v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M2 12h2M20 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+                    </svg>
+                </button>
+            </div>
+        </nav>
+        <div class="header-bg shadow-inner hidden lg:block">
+            <ul class="container mx-auto px-4 py-3 flex justify-between text-base font-medium" style="color: var(--text-secondary);">
+                <li><a href="#" class="hover:text-blue-600 transition-colors">About Us</a></li>
+                <li><a href="#" class="hover:text-blue-600 transition-colors">Contact Us</a></li>
+                <li><a href="#" class="hover:text-blue-600 transition-colors">How to Find Your Paint Code</a></li>
+                <li><a href="#" class="hover:text-blue-600 transition-colors">Reviews</a></li>
+                <li><a href="#" class="hover:text-blue-600 transition-colors">Gift Cards</a></li>
+                <li><a href="#" class="hover:text-blue-600 transition-colors">File a Claim</a></li>
+                <li><a href="#" class="hover:text-blue-600 transition-colors">Testimonials</a></li>
+                <li><a href="#" class="hover:text-blue-600 transition-colors">Track Your Order</a></li>
+            </ul>
+        </div>
+    </header>
 
-      <!-- Navigation Links -->
-      <nav class="nav-links" id="navLinks">
-        <a href="#home">Home</a>
-        <a href="#shop">Shop</a>
-        <a href="#about">About</a>
-        <a href="#contact">Contact</a>
-      </nav>
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <!-- Using uploaded images for the carousel -->
+        <img src="assets/car_image1.png" alt="White BMW on a city street" class="hero-image active" data-text="A NEW LOOK<br>FOR YOUR CAR<br>AT YOUR DOORSTEP">
+        <img src="assets/car_image2.png" alt="Grey BMW M4 at sunset" class="hero-image" data-text="PERFECT FIT<br>EXPERTLY PAINTED<br>QUALITY GUARANTEED">
+        <img src="assets/car_image3.png" alt="White Tesla Model 3 in a scenic landscape" class="hero-image" data-text="SHIPPED UNBOXED<br>READY TO INSTALL<br>PAINTED TO MATCH">
+        <img src="assets/car_image4.png" alt="Blue Chevrolet Camaro on a dirt road" class="hero-image" data-text="SPEED & STYLE<br>FOR EVERY RIDE<br>YOUR PARTS, FAST">
+        
+        <div class="hero-overlay">
+            <div class="hero-text">
+                <h1 class="text-5xl lg:text-7xl font-extrabold leading-tight mb-6" id="hero-title"></h1>
+                <a href="#" class="inline-block shop-now-btn">Shop Now</a>
+            </div>
+        </div>
+        <!-- Updated number of dots to match the number of images -->
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 flex space-x-3">
+            <span class="w-4 h-4 rounded-full bg-white opacity-40 cursor-pointer transition-opacity"></span>
+            <span class="w-4 h-4 rounded-full bg-white opacity-40 cursor-pointer transition-opacity"></span>
+            <span class="w-4 h-4 rounded-full bg-white opacity-40 cursor-pointer transition-opacity"></span>
+            <span class="w-4 h-4 rounded-full bg-white opacity-40 cursor-pointer transition-opacity"></span>
+        </div>
+        <div class="absolute inset-y-0 right-0 flex items-center pr-6 text-white text-3xl cursor-pointer opacity-70 hover:opacity-100 transition-opacity">
+            <svg class="w-10 h-10" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+        </div>
+        <div class="absolute inset-y-0 left-0 flex items-center pl-6 text-white text-3xl cursor-pointer opacity-70 hover:opacity-100 transition-opacity">
+            <svg class="w-10 h-10" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 6-6 6 6 6"/></svg>
+        </div>
+    </section>
 
-      <!-- Hamburger Menu (for Mobile) -->
-      <button class="hamburger" id="hamburger">&#9776;</button>
+    <!-- Vehicle Selection Section -->
+    <div class="bg-gray-200 py-12 shadow-inner-xl flex justify-center items-center" style="background-color: var(--form-bg);">
+        <div class="container mx-auto px-6 vehicle-selection-card">
+            <div class="flex flex-col items-center text-center">
+                <div class="flex items-center space-x-4 mb-4">
+                    <svg class="w-12 h-12 text-blue-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 20.25a2 2 0 1 0 4 0 2 2 0 0 0-4 0"/><path d="M18 20.25a2 2 0 1 0 4 0 2 2 0 0 0-4 0"/><path d="M2 13.25h1.25a2 2 0 0 1 1.75 1.75v3.25a2 2 0 0 1-2 2h-.5c-.83 0-1.5-.67-1.5-1.5V16.5c0-.83.67-1.5 1.5-1.5h1.5l1.5-1.5h7.5c.83 0 1.5.67 1.5 1.5v3.25c0 .83-.67 1.5-1.5 1.5h-.5a2 2 0 1 0-4 0"/><path d="M21 17c0 1.66-1.34 3-3 3h-1.5a1.5 1.5 0 0 1-1.5-1.5V16.5c0-.83-.67-1.5-1.5-1.5h-1.5c-2.48 0-4.5 2.02-4.5 4.5v3.75"/><path d="M12 18.25v2.25"/><path d="M12 18.25h1.25a1.5 1.5 0 0 0 1.5-1.5V15.25c0-.83-.67-1.5-1.5-1.5h-2.25c-.83 0-1.5-.67-1.5-1.5V12c0-1.1.9-2 2-2h1.5c.83 0 1.5.67 1.5 1.5v.5"/><path d="M21 16.5v-3.25a2 2 0 0 0-1.75-1.75h-1.25a2 2 0 0 0-1.75 1.75V15.25c0 .83.67 1.5 1.5 1.5h1.5l1.5-1.5h2.25c.83 0 1.5.67 1.5 1.5V16.5"/></svg>
+                    <p class="text-3xl font-extrabold" id="selection-status-text" style="color: var(--text-primary);">Select a vehicle to find parts that fit.</p>
+                </div>
+                <p class="mb-6 max-w-xl text-lg text-gray-700" style="color: var(--text-secondary);">
+                    Quickly and easily find the perfect parts for your car by adding it to your garage.
+                </p>
+                <button id="select-vehicle-btn" class="w-full max-w-sm btn-primary font-bold py-4 px-8 rounded-full shadow-lg">
+                    SELECT OR ADD A VEHICLE
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Main Content Area -->
+    <main class="container mx-auto px-6 py-16">
+        <!-- Customer Reviews Section -->
+        <section class="mb-20">
+            <h2 class="text-4xl font-extrabold text-center mb-12" style="color: var(--text-primary);">What Our Customers Are Saying</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                <!-- Review Card 1 -->
+                <div class="card review-card" style="background-color: var(--bg-card);">
+                    <p class="review-rating text-center" style="color: var(--text-primary);">5/5</p>
+                    <p class="text-sm text-center" style="color: var(--text-secondary);">Flawless Paint Match!</p>
+                    <p class="review-text" style="color: var(--text-secondary);">
+                        "I couldn't believe how perfect the paint match was. The fender fit like a glove and installation was a breeze. Definitely buying from here again!"
+                    </p>
+                    <p class="text-right text-sm font-semibold mt-4" style="color: var(--text-primary);">- Sarah J.</p>
+                </div>
+                <!-- Review Card 2 -->
+                <div class="card review-card" style="background-color: var(--bg-card);">
+                    <p class="review-rating text-center" style="color: var(--text-primary);">4.8/5</p>
+                    <p class="text-sm text-center" style="color: var(--text-secondary);">Excellent Service & Quality</p>
+                    <p class="review-text" style="color: var(--text-secondary);">
+                        "The part arrived faster than expected and the quality was top-notch. It was a perfect fit for my 2018 Ford F-150. Highly recommend Partify!"
+                    </p>
+                    <p class="text-right text-sm font-semibold mt-4" style="color: var(--text-primary);">- Michael P.</p>
+                </div>
+                <!-- Review Card 3 -->
+                <div class="card review-card" style="background-color: var(--bg-card);">
+                    <div class="px-6 py-6">
+                        <p class="review-rating text-center" style="color: var(--text-primary);">4.9/5</p>
+                        <p class="text-sm text-center" style="color: var(--text-secondary);">Unbeatable Price and Value</p>
+                        <p class="review-text" style="color: var(--text-secondary);">
+                            "I was hesitant to order a painted bumper online, but this exceeded my expectations. The price was great and the product was flawless. No paint prep needed!"
+                        </p>
+                        <p class="text-right text-sm font-semibold mt-4" style="color: var(--text-primary);">- David L.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Blog Posts Section -->
+        <section class="mb-20">
+            <h2 class="text-4xl font-extrabold text-center mb-12" style="color: var(--text-primary);">Blog Posts</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                <!-- Blog Post Card 1 -->
+                <a href="#" class="blog-post-card card" style="background-color: var(--bg-card);">
+                    <div class="px-6 py-6 flex flex-col h-full">
+                        <h3 class="text-2xl font-bold mb-2" style="color: var(--text-primary);">Why Paint Matching Still Slows Down Body Shops</h3>
+                        <p class="text-gray-600 text-sm mb-4" style="color: var(--text-secondary);">Discover how VIN-based paint matching is transforming collision repair. Learn why traditional color matching slows down body shops, and how automated VIN technology saves time...</p>
+                        <span class="mt-auto text-blue-600 hover:text-blue-800 font-semibold transition-colors flex items-center group">
+                            Read now
+                            <span class="ml-1 transform group-hover:translate-x-1 transition-transform read-more">&rarr;</span>
+                        </span>
+                    </div>
+                </a>
+                <!-- Blog Post Card 2 -->
+                <a href="#" class="blog-post-card card" style="background-color: var(--bg-card);">
+                    <div class="px-6 py-6 flex flex-col h-full">
+                        <h3 class="text-2xl font-bold mb-2" style="color: var(--text-primary);">Know Your Part: Compare Aftermarket, CAPA Certified, and OEM Parts</h3>
+                        <p class="text-gray-600 text-sm mb-4" style="color: var(--text-secondary);">Say goodbye to the hassle of searching multiple pages to find the right part for your vehicle! Partify's new product pages display Aftermarket, CAPA...</p>
+                        <span class="mt-auto text-blue-600 hover:text-blue-800 font-semibold transition-colors flex items-center group">
+                            Read now
+                            <span class="ml-1 transform group-hover:translate-x-1 transition-transform read-more">&rarr;</span>
+                        </span>
+                    </div>
+                </a>
+                <!-- Blog Post Card 3 -->
+                <a href="#" class="blog-post-card card" style="background-color: var(--bg-card);">
+                    <div class="px-6 py-6 flex flex-col h-full">
+                        <h3 class="text-2xl font-bold mb-2" style="color: var(--text-primary);">The Inconvenience of Unfolding a Bumper</h3>
+                        <p class="text-gray-600 text-sm mb-4" style="color: var(--text-secondary);">Partify provides a hassle-free solution for drivers looking to replace their bumper covers without the typical frustration of prepping and painting...</p>
+                        <span class="mt-auto text-blue-600 hover:text-blue-800 font-semibold transition-colors flex items-center group">
+                            Read now
+                            <span class="ml-1 transform group-hover:translate-x-1 transition-transform read-more">&rarr;</span>
+                        </span>
+                    </div>
+                </a>
+            </div>
+            <div class="text-center mt-12">
+                <a href="#" class="inline-block text-lg font-bold text-blue-600 hover:text-blue-800 transition-colors flex items-center justify-center group">
+                    See more
+                    <span class="ml-1 transform group-hover:translate-x-1 transition-transform">&rarr;</span>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer-bg text-gray-300 py-16">
+        <div class="container mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-12">
+            <!-- Footer CTA -->
+            <div>
+                <h3 class="text-white font-extrabold text-2xl mb-4">Get $10 off your cart</h3>
+                <p class="text-sm mb-6" style="color: var(--text-secondary);">Reveal coupon code by entering your email</p>
+                <form class="flex flex-col space-y-3">
+                    <input type="email" placeholder="Email" class="p-3 rounded-lg text-gray-900 border border-transparent focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <button type="submit" class="bg-blue-600 text-white font-bold py-3 rounded-lg hover:bg-blue-700 transition-colors shadow-lg">Reveal coupon</button>
+                </form>
+            </div>
+            <!-- Info Section -->
+            <div>
+                <h3 class="text-white font-bold text-lg mb-4">Info</h3>
+                <ul class="text-sm space-y-2" style="color: var(--text-secondary);">
+                    <li><a href="#" class="hover:text-white transition-colors">About Us</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Contact Us</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">FAQs</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Returns and Refunds</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">File a Claim</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">How to Find Your Paint Code</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Reviews</a></li>
+    
+                </ul>
+            </div>
+            <!-- Blog Posts Section -->
+            <div>
+                <h3 class="text-white font-bold text-lg mb-4">Blog Posts</h3>
+                <ul class="text-sm space-y-2" style="color: var(--text-secondary);">
+                    <li><a href="#" class="hover:text-white transition-colors">How to Install Your Part</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">CAPA vs. Non-CAPA</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Leveraging Your VIN with Partify</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">The More You Know</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Why You Don't Want A Folded Bumper</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">How To Order The Correct Part</a></li>
+                </ul>
+            </div>
+            <!-- Contact Section -->
+            <div>
+                <h3 class="text-white font-bold text-lg mb-4">Contact</h3>
+                <p class="text-sm mb-4" style="color: var(--text-secondary);"><strong>Address</strong><br>27555 College Park Dr<br>Warren, MI 48088</p>
+                <p class="text-sm mb-4" style="color: var(--text-secondary);"><strong>Phone Number</strong><br>1-234-567-8297</p>
+                <p class="text-sm mb-4" style="color: var(--text-secondary);"><strong>Email</strong><br>info@partify.gmail</p>
+                <p class="text-sm mb-4" style="color: var(--text-secondary);"><strong>Hours</strong><br>Mon to Fri 9AM-5PM ET</p>
+            </div>
+        </div>
+        <div class="container mx-auto px-6 mt-12 pt-6 border-t" style="border-color: var(--border-primary);">
+            <p class="text-xs" style="color: var(--text-secondary);">&copy; 2025 Partify. All Rights Reserved. <a href="#" class="hover:underline transition-colors">Privacy Policy</a> | <a href="#" class="hover:underline transition-colors">Terms of Use</a></p>
+            <div class="flex space-x-4 mt-6 md:mt-0">
+                <a href="#" class="social-icon" aria-label="Facebook">
+                    <svg class="w-6 h-6 text-gray-400 hover:text-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" style="color: var(--text-secondary);"><path d="M12 2C6.477 2 2 6.477 2 12c0 5.105 3.731 9.356 8.571 10.324V14.5h-2.285V12h2.285V9.75c0-2.257 1.34-3.5 3.5-3.5h2.25v2.25h-1.5c-.828 0-1.125.466-1.125 1.125V12h2.25l-.29 2.5h-1.96V22.324C18.269 21.356 22 17.105 22 12c0-5.523-4.477-10-10-10z"/></svg>
+                </a>
+                <a href="#" class="social-icon" aria-label="Twitter">
+                    <svg class="w-6 h-6 text-gray-400 hover:text-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" style="color: var(--text-secondary);"><path d="M22.46 6c-.77.34-1.6.57-2.47.67.88-.53 1.56-1.37 1.88-2.38-.83.49-1.75.84-2.72 1.03-.78-.83-1.89-1.35-3.13-1.35-2.36 0-4.28 1.92-4.28 4.28 0 .34.04.67.11.99-3.56-.18-6.72-1.89-8.83-4.49-.37.64-.58 1.39-.58 2.19 0 1.48.75 2.78 1.88 3.55-.69-.02-1.34-.21-1.92-.53v.05c0 2.07 1.47 3.8 3.42 4.19-.36.1-.73.15-1.12.15-.27 0-.53-.02-.79-.08.54 1.7 2.11 2.94 3.97 2.98-1.46 1.14-3.3 1.82-5.3 1.82-.34 0-.68-.02-1.01-.06C3.93 20.31 6.07 21 8.35 21c9.05 0 14.01-7.5 14.01-14.01 0-.21 0-.42-.01-.63.96-.69 1.79-1.55 2.45-2.52z"/></svg>
+                </a>
+                <a href="#" class="social-icon" aria-label="Instagram">
+                    <svg class="w-6 h-6 text-gray-400 hover:text-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" style="color: var(--text-secondary);"><path d="M12 2C8.423 2 7.973 2.015 6.438 2.083 4.903 2.15 3.707 2.585 2.68 3.612 1.653 4.638 1.218 5.834 1.15 7.369.083 8.903 0 9.453 0 12c0 2.547.083 3.097.15 4.632.068 1.535.503 2.731 1.53 3.758 1.027 1.027 2.223 1.462 3.758 1.53.068.007.135.015.203.015h11.124c1.535 0 2.731-.435 3.758-1.462 1.027-1.027 1.462-2.223 1.53-3.758.068-1.535.15-2.085.15-4.632 0-2.547-.083-3.097-.15-4.632-.068-1.535-.503-2.731-1.53-3.758-1.53L17.562 2.083C16.027 2.015 11.577 2 12 2zm0 2c3.541 0 3.985.015 5.234.083 1.34.067 2.008.384 2.476.852.468.468.785 1.136.852 2.476.068 1.25.083 1.694.083 5.234s-.015 3.985-.083 5.234c-.067 1.34-.384 2.008-.852 2.476-.468.468-1.136.785-2.476.852-1.25.068-1.694.083-5.234.083s-3.985-.015-5.234-.083c-1.34-.067-2.008-.384-2.476-.852-.468-.468-.785-1.136-.852-2.476-.068-1.25-.083-1.694-.083-5.234s.015-3.985.083-5.234c.067-1.34.384-2.008.852-2.476.468-.468 1.136-.785 2.476-.852C8.015 4.015 8.459 4 12 4zM12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10zM12 9a3 3 0 1 1 0 6 3 3 0 0 1 0-6zM17.5 5.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3z"/></svg>
+                </a>
+                <a href="#" class="social-icon" aria-label="Pinterest">
+                    <svg class="w-6 h-6 text-gray-400 hover:text-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" style="color: var(--text-secondary);"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.192 2.597 7.755 6.223 9.172.455.083.504-.2.504-.42 0-.206-.011-.902-.016-1.68-.847.155-1.026-.41-1.026-.826-1.684-1.11-2.04-2.65-2.04-3.14-.338-2.684-1.777-3.968-3.04-4.885-.68-.5-.87-1.15-.35-1.74.832-.888 2.03-.497 2.457.19.866 1.42 1.94 1.77 2.92.51.98-.37 1.49-.91 1.79-1.52.26-.53.11-1.09-.23-1.31-.38-.25-1.07-.38-1.72-.08-.66.3-1.02.7-1.21 1.35-.19.65.17 1.34.61 1.92.44.58.88.94 1.3.94.42 0 1.21-.31 1.95-1.12.74-.81 1.13-1.66 1.13-2.65 0-2.31-1.66-4.04-3.9-4.04-2.67 0-4.66 2.05-4.66 4.96 0 1.32.73 2.15 1.53 2.91.7.67.75 1.62.15 2.54-.5.78-1.58.89-2.31.25-.73-.64-1.12-1.54-1.12-2.61 0-3.32 2.76-6.12 6.12-6.12 3.36 0 5.67 2.4 5.67 5.76 0 3.32-1.92 5.92-4.52 5.92-.81 0-1.55-.3-2.17-.68-.62-.38-1.05-.9-1.3-1.58-.25-.68-.3-1.42-.14-2.14.28-1.3.8-2.6 1.5-3.87.64-.69 1.36-1.04 2.1-.8.74.24 1.13.75 1.13 1.46z"/></svg>
+                </a>
+                <a href="#" class="social-icon" aria-label="YouTube">
+                    <svg class="w-6 h-6 text-gray-400 hover:text-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" style="color: var(--text-secondary);"><path d="M21.58 6.55c-.24-.91-.98-1.65-1.89-1.89C18.25 4 12 4 12 4s-6.25 0-7.69.66c-.91.24-1.65.98-1.89 1.89-.66 3.1-.66 9.3 0 12.4s.98 1.65 1.89 1.89c1.44.66 7.69.66 7.69.66s6.25 0 7.69-.66c.91-.24 1.65-.98 1.89-1.89.66-3.1.66-9.3 0-12.4zM9.54 16.69V7.31l7.07 4.69-7.07 4.69z"/></svg>
+                </a>
+                <a href="#" class="social-icon" aria-label="LinkedIn">
+                    <svg class="w-6 h-6 text-gray-400 hover:text-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" style="color: var(--text-secondary);"><path d="M20.45 2.54c-.2-.2-.48-.2-.68 0L.72 17.58c-.2.2-.2.48 0 .68l1.79 1.79c.2.2.48.2 .68 0L21.46 4.96c.2-.2.2-.48 0-.68L20.45 2.54zM22.28 17.38c.19.19.19.51 0 .7L19.57 20.9c-.19.19-.51.19-.7 0L1.13 4.29c-.19-.19-.19-.51 0-.7L3.84 1.1c.19-.19.51-.19.7 0L22.28 17.38zM17.5 17.5c0 .28-.22.5-.5.5s-.5-.22-.5-.5.22-.5.5-.5.5.22.5.5zM6.5 6.5c0 .28-.22.5-.5.5s-.5-.22-.5-.5.22-.5.5-.5.5.22.5.5z"/></svg>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Vehicle Selection Modal -->
+    <div id="vehicle-modal" class="modal">
+        <div class="modal-content">
+            <span id="close-modal-btn" class="close-btn">&times;</span>
+            <div id="garage-modal-content">
+                <h3 class="text-3xl font-bold mb-2" style="color: var(--text-primary);">My Garage</h3>
+                <p class="mb-8" style="color: var(--text-secondary);">Select a vehicle to find parts that fit. You can add more vehicles below.</p>
+                <div id="garage-list-container" class="space-y-4 mb-6">
+                    <!-- Dynamic vehicle list will be rendered here -->
+                </div>
+                <button id="add-vehicle-in-garage-btn" class="w-full btn-secondary font-bold py-3 rounded-lg shadow-sm">
+                    Add Vehicle
+                </button>
+            </div>
+            
+            <div id="add-vehicle-modal-content" class="hidden">
+                <h3 class="text-3xl font-bold mb-2" style="color: var(--text-primary);">ADD A VEHICLE</h3>
+                <p class="mb-8" style="color: var(--text-secondary);">We need more information to help you find the right parts for your vehicle. Select a vehicle to narrow your results.</p>
+                
+                <!-- Main form for details is always visible -->
+                <div id="add-by-details-form" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
+                    <div>
+                        <p class="text-sm font-semibold mb-1" style="color: var(--text-primary);">1 | Year <span class="text-red-500">*</span></p>
+                        <select id="year-select" class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-shadow" style="background-color: var(--bg-card); border-color: var(--border-primary); color: var(--text-primary);">
+                            <option value="">Select Year</option>
+                        </select>
+                    </div>
+                    <div>
+                        <p class="text-sm font-semibold mb-1" style="color: var(--text-primary);">2 | Make <span class="text-red-500">*</span></p>
+                        <select id="make-select" class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-shadow" style="background-color: var(--bg-card); border-color: var(--border-primary); color: var(--text-primary);">
+                            <option value="">Select Make</option>
+                        </select>
+                    </div>
+                    <div>
+                        <p class="text-sm font-semibold mb-1" style="color: var(--text-primary);">3 | Model <span class="text-red-500">*</span></p>
+                        <select id="model-select" class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-shadow" style="background-color: var(--bg-card); border-color: var(--border-primary); color: var(--text-primary);">
+                            <option value="">Select Model</option>
+                        </select>
+                    </div>
+                    <div class="md:col-span-2 lg:col-span-1 xl:col-span-1">
+                        <p class="text-sm font-semibold mb-1" style="color: var(--text-primary);">Product Type</p>
+                        <select id="product-type-select" class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-shadow" style="background-color: var(--bg-card); border-color: var(--border-primary); color: var(--text-primary);">
+                            <option value="">Select a Product Type</option>
+                        </select>
+                    </div>
+                </div>
+                <button id="add-vehicle-details-btn" class="w-full btn-primary text-white font-bold py-3 rounded-lg shadow-lg">
+                    ADD VEHICLE
+                </button>
+                
+                <div class="my-8 text-center text-gray-400 relative">
+                    <span class="px-4 text-sm relative z-10" style="background-color: var(--bg-card); color: var(--text-secondary);">or</span>
+                    <div class="absolute inset-0 border-b border-gray-300 transform translate-y-1/2" style="border-color: var(--border-primary);"></div>
+                </div>
+
+                <!-- Toggleable tabs for license plate and VIN -->
+                <div class="flex justify-center items-center space-x-6">
+                    <a href="#" id="add-by-license-tab" class="modal-tab-link active">
+                        <h3 class="text-2xl font-bold" style="color: var(--text-primary);">ADD BY LICENSE PLATE</h3>
+                    </a>
+                    <span class="text-2xl font-bold" style="color: var(--text-secondary);">|</span>
+                    <a href="#" id="add-by-vin-tab" class="modal-tab-link">
+                        <h3 class="text-2xl font-bold" style="color: var(--text-primary);">ADD BY VIN</h3>
+                    </a>
+                </div>
+                
+                <p class="mb-4 text-sm" style="color: var(--text-secondary);">Available for car and truck model years 1981 and newer.</p>
+                
+                <!-- Add by license plate content -->
+                <div id="add-by-license-content">
+                    <div class="flex flex-col md:flex-row items-center md:space-x-4 space-y-4 md:space-y-0">
+                        <select id="state-select" class="flex-shrink-0 w-full md:w-auto p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-shadow" style="background-color: var(--bg-card); border-color: var(--border-primary); color: var(--text-primary);">
+                            <option value="">Select State</option>
+                            <option value="AL">Alabama</option>
+                            <option value="AK">Alaska</option>
+                            <option value="AZ">Arizona</option>
+                            <option value="AR">Arkansas</option>
+                            <option value="CA">California</option>
+                            <option value="CO">Colorado</option>
+                            <option value="CT">Connecticut</option>
+                            <option value="DE">Delaware</option>
+                            <option value="FL">Florida</option>
+                            <option value="GA">Georgia</option>
+                            <option value="HI">Hawaii</option>
+                            <option value="ID">Idaho</option>
+                            <option value="IL">Illinois</option>
+                            <option value="IN">Indiana</option>
+                            <option value="IA">Iowa</option>
+                            <option value="KS">Kansas</option>
+                            <option value="KY">Kentucky</option>
+                            <option value="LA">Louisiana</option>
+                            <option value="ME">Maine</option>
+                            <option value="MD">Maryland</option>
+                            <option value="MA">Massachusetts</option>
+                            <option value="MI">Michigan</option>
+                            <option value="MN">Minnesota</option>
+                            <option value="MS">Mississippi</option>
+                            <option value="MO">Missouri</option>
+                            <option value="MT">Montana</option>
+                            <option value="NE">Nebraska</option>
+                            <option value="NV">Nevada</option>
+                            <option value="NH">New Hampshire</option>
+                            <option value="NJ">New Jersey</option>
+                            <option value="NM">New Mexico</option>
+                            <option value="NY">New York</option>
+                            <option value="NC">North Carolina</option>
+                            <option value="ND">North Dakota</option>
+                            <option value="OH">Ohio</option>
+                            <option value="OK">Oklahoma</option>
+                            <option value="OR">Oregon</option>
+                            <option value="PA">Pennsylvania</option>
+                            <option value="RI">Rhode Island</option>
+                            <option value="SC">South Carolina</option>
+                            <option value="SD">South Dakota</option>
+                            <option value="TN">Tennessee</option>
+                            <option value="TX">Texas</option>
+                            <option value="UT">Utah</option>
+                            <option value="VT">Vermont</option>
+                            <option value="VA">Virginia</option>
+                            <option value="WA">Washington</option>
+                            <option value="WV">West Virginia</option>
+                            <option value="WI">Wisconsin</option>
+                            <option value="WY">Wyoming</option>
+                        </select>
+                        <input type="text" id="license-plate-input" placeholder="e.g. ABC1234" class="flex-grow w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-shadow" style="background-color: var(--bg-card); border-color: var(--border-primary); color: var(--text-primary);">
+                        <button id="add-vehicle-license-btn" class="w-full md:w-auto btn-primary text-white font-bold py-3 px-8 rounded-lg shadow-lg">
+                            ADD VEHICLE
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Add by VIN content -->
+                <div id="add-by-vin-content" class="hidden">
+                    <div class="flex flex-col md:flex-row items-center md:space-x-4 space-y-4 md:space-y-0">
+                        <input type="text" id="vin-input" placeholder="e.g. 19UYA31581L00000" class="flex-grow w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-shadow" style="background-color: var(--bg-card); border-color: var(--border-primary); color: var(--text-primary);" maxlength="17">
+                        <button id="add-vehicle-vin-btn" class="w-full md:w-auto btn-primary text-white font-bold py-3 px-8 rounded-lg shadow-lg">
+                            ADD VEHICLE
+                        </button>
+                    </div>
+                </div>
+                <p class="text-xs mt-4" style="color: var(--text-secondary);">Disclaimer: Entering your VIN is a simplified way of submitting your year, make, and model. We do not use the VIN to verify fitment. Please use product fitment details for ordering the correct parts.</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- New Promotional Modal -->
+    <div id="promo-modal" class="modal">
+        <div class="modal-content text-center p-8 rounded-2xl shadow-2xl" style="background-color: var(--bg-card);">
+            <span id="close-promo-btn" class="close-btn">&times;</span>
+            <div id="promo-content-container">
+                <!-- Content will be injected by JavaScript -->
+            </div>
+        </div>
     </div>
 
-    <!-- Theme Toggle Button (Light / Dark) -->
-    <button id="themeToggle" class="theme-toggle" aria-label="Toggle Theme">
-      <!-- Light Theme Icon -->
-      <svg id="sunIcon" xmlns="http://www.w3.org/2000/svg" class="icon sun" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-        <circle cx="12" cy="12" r="5" />
-        <line x1="12" y1="1" x2="12" y2="3" />
-        <line x1="12" y1="21" x2="12" y2="23" />
-        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
-        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
-        <line x1="1" y1="12" x2="3" y2="12" />
-        <line x1="21" y1="12" x2="23" y2="12" />
-        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
-        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
-      </svg>
+    <!-- Login/Registration Modal -->
+    <div id="auth-modal" class="modal">
+        <div class="modal-content text-center p-8 rounded-2xl shadow-2xl" style="background-color: var(--bg-card);">
+            <span id="close-auth-btn" class="close-btn">&times;</span>
+            <div id="auth-forms">
+                <!-- Login Form -->
+                <div id="login-form-container">
+                    <div class="flex flex-col items-center">
+                        <svg class="w-16 h-16 mb-4" style="color: var(--accent-blue);" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+                        </svg>
+                        <h3 class="text-3xl font-bold mb-2" style="color: var(--text-primary);">Sign in to your account</h3>
+                        <p class="mb-6" style="color: var(--text-secondary);">Welcome back! Please enter your details.</p>
+                        <form id="login-form" class="w-full max-w-sm">
+                            <div class="mb-4 text-left">
+                                <label for="login-email" class="block text-sm font-medium mb-1" style="color: var(--text-primary);">Email address</label>
+                                <input type="email" id="login-email" class="w-full p-3 rounded-lg border focus:outline-none focus:ring-2 focus:ring-blue-500 transition-shadow" style="background-color: var(--form-bg); border-color: var(--border-primary); color: var(--text-primary);">
+                            </div>
+                            <div class="mb-6 text-left">
+                                <label for="login-password" class="block text-sm font-medium mb-1" style="color: var(--text-primary);">Password</label>
+                                <input type="password" id="login-password" class="w-full p-3 rounded-lg border focus:outline-none focus:ring-2 focus:ring-blue-500 transition-shadow" style="background-color: var(--form-bg); border-color: var(--border-primary); color: var(--text-primary);">
+                            </div>
+                            <button type="submit" class="w-full btn-primary text-white font-bold py-3 rounded-lg shadow-lg">
+                                Sign In
+                            </button>
+                        </form>
+                        <a href="#" class="text-sm mt-4 hover:underline" style="color: var(--text-secondary);">Forgot password?</a>
+                        <p class="text-sm mt-4" style="color: var(--text-secondary);">Don't have an account? <a href="#" id="show-register-link" class="text-blue-600 hover:underline">Register now</a></p>
+                    </div>
+                </div>
 
-      <!-- Dark Theme Icon -->
-      <svg id="moonIcon" xmlns="http://www.w3.org/2000/svg" class="icon moon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-        <path d="M21 12.79A9 9 0 0111.21 3 7 7 0 1012.79 21 9 9 0 0121 12.79z" />
-      </svg>
+                <!-- Registration Form -->
+                <div id="register-form-container" class="hidden">
+                    <div class="flex flex-col items-center">
+                        <svg class="w-16 h-16 mb-4" style="color: var(--accent-blue);" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>
+                        </svg>
+                        <h3 class="text-3xl font-bold mb-2" style="color: var(--text-primary);">Create your account</h3>
+                        <p class="mb-6" style="color: var(--text-secondary);">Get started in seconds!</p>
+                        <form id="register-form" class="w-full max-w-sm">
+                            <div class="mb-4 text-left">
+                                <label for="register-name" class="block text-sm font-medium mb-1" style="color: var(--text-primary);">Full Name</label>
+                                <input type="text" id="register-name" class="w-full p-3 rounded-lg border focus:outline-none focus:ring-2 focus:ring-blue-500 transition-shadow" style="background-color: var(--form-bg); border-color: var(--border-primary); color: var(--text-primary);">
+                            </div>
+                            <div class="mb-4 text-left">
+                                <label for="register-email" class="block text-sm font-medium mb-1" style="color: var(--text-primary);">Email address</label>
+                                <input type="email" id="register-email" class="w-full p-3 rounded-lg border focus:outline-none focus:ring-2 focus:ring-blue-500 transition-shadow" style="background-color: var(--form-bg); border-color: var(--border-primary); color: var(--text-primary);">
+                            </div>
+                            <div class="mb-6 text-left">
+                                <label for="register-password" class="block text-sm font-medium mb-1" style="color: var(--text-primary);">Password</label>
+                                <input type="password" id="register-password" class="w-full p-3 rounded-lg border focus:outline-none focus:ring-2 focus:ring-blue-500 transition-shadow" style="background-color: var(--form-bg); border-color: var(--border-primary); color: var(--text-primary);">
+                            </div>
+                            <button type="submit" class="w-full btn-primary text-white font-bold py-3 rounded-lg shadow-lg">
+                                Create Account
+                            </button>
+                        </form>
+                        <p class="text-sm mt-4" style="color: var(--text-secondary);">Already have an account? <a href="#" id="show-login-link" class="text-blue-600 hover:underline">Sign in</a></p>
+                    </div>
+                </div>
+            </div>
+            <div id="auth-message" class="mt-4 hidden text-sm font-medium p-3 rounded-lg"></div>
+        </div>
+    </div>
+
+    <!-- Chatbot Button -->
+    <button id="chat-button" class="fixed bottom-8 right-8 w-16 h-16 rounded-full bg-blue-600 text-white shadow-lg flex items-center justify-center hover:bg-blue-700 transition-all z-50">
+        <svg class="w-8 h-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V3a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+        </svg>
     </button>
-  </header>
 
-  <!--  Hero Section with Animated Content and Statistics -->
-  <!--  Hero + Carousel Unified Section -->
-<section class="hero-carousel">
-  <div class="carousel-slide active">
-    <div class="hero-content">
-      <h1 class="hero-title">Partify USA</h1>
-      <p class="hero-subtitle">Parts Finder</p>
-      <p class="hero-description">
-        Find the exact automotive parts you need for your vehicle with our advanced search system
-      </p>
-
-      <div class="stats-grid">
-        <div class="stats-row">
-          <div class="stat-card glow animate-top">
-            <div class="stat-icon">🔧</div>
-            <div class="stat-number" data-target="25000">0</div>
-            <div class="stat-label">Quality Parts</div>
-          </div>
-          <div class="stat-card glow animate-top">
-            <div class="stat-icon">🚗</div>
-            <div class="stat-number" data-target="500">0</div>
-            <div class="stat-label">Vehicle Models</div>
-          </div>
+    <!-- Chatbot Modal -->
+    <div id="chat-modal" class="modal">
+        <div class="modal-content">
+            <div id="chat-header">
+                <p>Partify Assistant</p>
+                <button id="close-chat-btn" class="text-gray-500 hover:text-gray-900 transition-colors">&times;</button>
+            </div>
+            <div id="chat-messages">
+                <!-- Chat messages will be dynamically added here -->
+            </div>
+            <div id="chat-input-area">
+                <input type="text" id="chat-input" placeholder="Ask about parts, orders, and more..." class="w-full p-2 rounded-full">
+                <button id="chat-send-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M5 12h14"/>
+                        <path d="m12 5 7 7-7 7"/>
+                    </svg>
+                </button>
+            </div>
         </div>
-      
-        <div class="stats-row">
-          <div class="stat-card glow animate-bottom">
-            <div class="stat-icon">📞</div>
-            <div class="stat-number">24/7</div>
-            <div class="stat-label">Support</div>
-          </div>
-          <div class="stat-card glow animate-bottom">
-            <div class="stat-icon">👁️</div>
-            <div class="stat-number" data-target="2450">0</div>
-            <div class="stat-label">Parts viewed today</div>
-          </div>
-        </div>
-      </div>
-      
-  </div>  
-</section>
-
-
-<!--  Quick Vehicle Search Section -->
-<section class="quick-vehicle-search">
-  <div class="quick-search-container">
-    <div class="quick-search-icon">
-      <svg xmlns="http://www.w3.org/2000/svg" class="car-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M3 13h18l-1.5-4.5a2 2 0 0 0-1.9-1.5H6.4a2 2 0 0 0-1.9 1.5L3 13z"></path>
-        <circle cx="7.5" cy="17.5" r="2.5"></circle>
-        <circle cx="16.5" cy="17.5" r="2.5"></circle>
-        <path d="M3 13v5h1.5M21 13v5h-1.5"></path>
-      </svg>
     </div>
 
-    <div class="quick-search-text">
-      <h2 class="animated-heading">Unlock the Perfect Fit</h2>
-      <p class="animated-sub">Add your vehicle to see exact fit parts</p>
-    </div>
 
-    <div class="quick-search-buttons">
-      <button onclick="revealForm()">Enter Year/Make/Model</button>
-      <button id="licensePlateTrigger">Enter License Plate</button>
-      <button id="vinTrigger">Enter VIN</button>
-    </div>
-  </div>
-</section>
+    <script src="script.js"></script>
 
-
-
-<div class="main-content">
-    <div class="section-header">
-      <h2 class="section-title">Find Your Perfect Part</h2>
-      <p class="section-description">
-        Use our intelligent parts finder to locate exactly what you need for your vehicle.
-        Simply select your year, make, model, and part type to get started.
-      </p>
-    </div>
-  
-    <!-- 🔧 Year/Make/Model Modal -->
-<div id="findPartsModal" class="modal hidden">
-  <div class="modal-content form-style">
-    <span class="close-btn" id="closeFindPartsModal">&times;</span>
-
-    <div id="findPartsSection">
-      <div class="form-header">
-        <h2 class="form-title">Find Your Parts</h2>
-        <p class="form-subtitle">Select your vehicle details to find compatible parts</p>
-      </div>
-
-      <form id="partsFinderForm">
-        <!-- Dropdown: Year -->
-        <div class="form-group">
-          <label for="year" class="form-label">Year</label>
-          <select id="year" class="form-select"><option value="">Select Year</option></select>
-        </div>
-
-        <!-- Dropdown: Make -->
-        <div class="form-group">
-          <label for="make" class="form-label">Make</label>
-          <select id="make" class="form-select" disabled><option value="">Select Make</option></select>
-        </div>
-
-        <!-- Dropdown: Model -->
-        <div class="form-group">
-          <label for="model" class="form-label">Model</label>
-          <select id="model" class="form-select" disabled><option value="">Select Model</option></select>
-        </div>
-
-        <!-- Dropdown: Product Type -->
-        <div class="form-group">
-          <label for="productType" class="form-label">Product Type</label>
-          <select id="productType" class="form-select" disabled><option value="">Select Product Type</option></select>
-        </div>
-
-        <!-- Optional VIN Input -->
-        <div class="form-group">
-          <label for="vinInput" class="form-label">VIN (optional)</label>
-          <input type="text" id="vinInput" class="form-select" placeholder="Enter 17-digit VIN" maxlength="17" />
-          <button type="button" id="vinLookupBtn" class="submit-button" style="margin-top: 10px;">Lookup VIN</button>
-        </div>
-
-        <!-- Final Submit Button -->
-        <button type="submit" id="submitButton" class="submit-button" disabled>Find Parts</button>
-      </form>
-    </div>
-  </div>
-</div>
-
-
-  <section class="recently-viewed hidden fade-in" id="recentlyViewedSection">
-    <h2>Recently Viewed</h2>
-    <ul id="recentList" class="recent-list"></ul>
-  </section>
-  
-  <!-- Features Grid -->
-  <div class="features-grid">
-    <div class="feature-card slide-up">
-      <div class="feature-icon quality">✓</div>
-      <h3 class="feature-title">Quality Guaranteed</h3>
-      <p class="feature-description">All parts meet OEM specifications</p>
-    </div>
-    <div class="feature-card slide-up">
-      <div class="feature-icon shipping">⚡</div>
-      <h3 class="feature-title">Fast Shipping</h3>
-      <p class="feature-description">Get your parts delivered quickly</p>
-    </div>
-    <div class="feature-card slide-up">
-      <div class="feature-icon support">⚙</div>
-      <h3 class="feature-title">Expert Support</h3>
-      <p class="feature-description">Professional help when you need it</p>
-    </div>
-    <div class="feature-card slide-up">
-      <div class="feature-icon pricing">$</div>
-      <h3 class="feature-title">Best Prices</h3>
-      <p class="feature-description">Competitive pricing on all parts</p>
-    </div>
-  </div>
-
-  <!-- Special Offer Section -->
-  <section class="deal-section">
-    <h2>🎁 Special Offer</h2>
-    <button class="reveal-deal-btn" onclick="revealDeal()">Reveal Deal</button>
-    <div id="deal-box" class="deal-box hidden"></div>
-  </section>
-
-  <!--  Chat Widget -->
-  <div id="chatWidget" class="chat-widget">
-    <div id="chatMenu" class="chat-menu hidden">
-      
-      <!--  Header -->
-      <div class="chat-header">
-        <span>How can we help?</span>
-        <button id="closeChat" class="chat-close-btn">×</button>
-      </div>
-
-      <!--  Main Chat Options -->
-      <div class="chat-options">
-        <button class="chat-option" data-type="agent">📞 Connect with Agent</button>
-        <button class="chat-option" data-type="faq">❓ FAQ</button>
-        <button class="chat-option" data-type="live">💬 Live Chat</button>
-      </div>
-
-      <!-- Instant FAQs (Initially Hidden) -->
-      <div class="instant-answers hidden" id="faqButtons">
-        <h4>Instant Answers</h4>
-        <button class="faq-btn" data-answer="Most orders ship within 24 hours and arrive in 3–5 business days.">How long after ordering will I receive my order?</button>
-        <button class="faq-btn" data-answer="Returns accepted within 30 days. Item must be unused and in original packaging.">What is your return policy?</button>
-        <button class="faq-btn" data-answer="Check inside the driver’s door or contact us if you can’t find your paint code.">I cannot find my paint code in your list.</button>
-        <button class="faq-btn" data-answer="Your paint code is typically on the driver’s side door or in the owner’s manual.">How can I find my paint code?</button>
-        <button class="faq-btn" data-answer="We follow a 3-stage OEM-approved process for durability and perfect color match.">What is your paint process?</button>
-      </div>
-      <div id="agentCallView" class="hidden chat-message">
-        <p>📞 Calling agent...</p>
-      </div>
-      
-      <!-- FAQ Chat View (Dynamic) -->
-      <div class="faq-chat-view hidden" id="faqChatView">
-        <div class="chat-bubble user-question" id="chatUserQuestion"></div>
-        <div class="chat-bubble bot-answer" id="chatBotAnswer"></div>
-        <button class="back-to-faq-btn" id="backToFaq">← Back to FAQs</button>
-      </div>
-
-      <!--  Live Chat Simulation -->
-      <div class="live-chat-view hidden" id="liveChatView">
-        <div class="chat-bubble bot-answer">🔄 Please wait... An agent will join shortly to assist you with your request.</div>
-        <button class="back-to-chat-btn" id="backToChat">← Back</button>
-      </div>
-
-      <!-- Footer Info -->
-      <div class="chat-footer">Available 24/7 • Avg response time: 2 mins</div>
-    </div>
-
-    <!-- Floating Chat Button -->
-    <button id="chatToggle" class="chat-toggle-btn">
-      <span id="chatIcon" style="font-size: 26px;">💬</span>
-      <span id="closeIcon" class="hidden">×</span>
-    </button>
-  </div>
-  
-  <!-- Footer Section -->
-  <footer class="footer custom-footer">
-    <div class="footer-container">
-      <div class="footer-section promo">
-        <h3>🎁 <span>$10 Off Your First Order</span></h3>
-        <p>Subscribe for exclusive deals & unlock your coupon</p>
-        <form class="coupon-form">
-          <input type="email" placeholder="Enter your email" />
-          <button type="submit">Reveal Coupon</button>
-        </form>
-      </div>
-  
-      <div class="footer-section">
-        <h4>Info</h4>
-        <ul>
-          <li><a href="#">About Us</a></li>
-          <li><a href="#">Contact</a></li>
-          <li><a href="#">FAQs</a></li>
-          <li><a href="#">Returns & Refunds</a></li>
-          <li><a href="#">File a Claim</a></li>
-        </ul>
-      </div>
-  
-      <div class="footer-section">
-        <h4>Blog</h4>
-        <ul>
-          <li><a href="#">Install Your Part</a></li>
-          <li><a href="#">CAPA vs. Non-CAPA</a></li>
-          <li><a href="#">Using VIN for Fit</a></li>
-          <li><a href="#">Smart Part Tips</a></li>
-          <li><a href="#">Avoid Fit Issues</a></li>
-        </ul>
-      </div>
-  
-      <div class="footer-section contact">
-        <h4>Contact</h4>
-        <p><strong>Address:</strong> 27555 College Park Dr, Warren, MI 48088</p>
-        <p><strong>Phone:</strong> <a href="tel:1234568297">1-23-456-8297</a></p>
-        <p><strong>Email:</strong> <a href="mailto:info@partify.gmail">info@partify.gmail</a></p>
-        <p><strong>Hours:</strong> Mon–Fri 9AM–5PM ET</p>
-      </div>
-    </div>
-  
-    <div class="footer-bottom">
-      <p>© 2025 Partify • Powered by Shopify</p>
-      <div class="social-icons">
-        <a href="#"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/maildotru.svg" alt="Email" /></a>
-        <a href="#"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/facebook.svg" alt="Facebook" /></a>
-        <a href="#"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/instagram.svg" alt="Instagram" /></a>
-        <a href="#"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/tiktok.svg" alt="TikTok" /></a>
-        <a href="#"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/youtube.svg" alt="YouTube" /></a>
-      </div>
-    </div>
-  </footer>
-  
-  
-
-  <!-- 🗣️ Feedback Widget -->
-  <div class="feedback-widget" id="feedbackWidget">
-    <p id="feedbackText">Was this page helpful?</p>
-    <div class="feedback-buttons" id="feedbackButtons">
-      <button onclick="handleFeedback('yes')">👍 Yes</button>
-      <button onclick="handleFeedback('no')">👎 No</button>
-    </div>
-    <div id="feedbackResponse" class="hidden"></div>
-  </div>
-
-  <!-- Script Imports -->
-  <script src="data.js"></script>
-  <script src="script.js"></script>
-<!-- License Plate Modal -->
-<div id="licensePlateModal" class="modal hidden">
-  <div class="modal-content">
-    <span class="close-btn" id="closeLicenseModal">&times;</span>
-    <h2>ADD BY LICENSE PLATE</h2>
-    <p>Available for car and truck model years 1981 and newer.</p>
-
-    <label class="modal-label">License Plate Number</label>
-    <div class="modal-form">
-      <select id="stateSelect">
-        <option value="">State</option>
-        <option value="CA">California</option>
-        <option value="TX">Texas</option>
-        <option value="NY">New York</option>
-        <option value="FL">Florida</option>
-        <option value="IL">Illinois</option>
-      </select>
-
-      <input type="text" id="plateInput" placeholder="e.g. ABC1234" maxlength="10" />
-
-      <button id="addVehicleBtn" disabled>ADD VEHICLE</button>
-    </div>
-  </div>
-</div>
-<!-- VIN Entry Modal -->
- 
-<div id="vinModal" class="modal hidden">
-  <div class="modal-content">
-    <span class="close-btn" id="closeVinModal">&times;</span>
-    <h2>ENTER VIN</h2>
-    <p>Enter your 17-digit Vehicle Identification Number (VIN).</p>
-
-    <label for="vinInput" class="modal-label">VIN (optional)</label>
-    <input type="text" id="vinInput" placeholder="Enter 17-digit VIN" maxlength="17" />
-
-    <button id="lookupVinBtn" disabled>LOOKUP VIN</button>
-  </div>
-</div>
-
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </body>
 </html>
