@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const addByLicenseTab = document.getElementById('add-by-license-tab');
     const addByVinTab = document.getElementById('add-by-vin-tab');
 
-    // Chatbot elements
+    // Chatbot element's
     const chatButton = document.getElementById('chat-button');
     const chatModal = document.getElementById('chat-modal');
     const closeChatBtn = document.getElementById('close-chat-btn');
