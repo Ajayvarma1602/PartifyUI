@@ -1653,7 +1653,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const maxRetries = 3;
                 let response;
                 
-                const apiKey = "AIzaSyBZsNPsBwX5NXclSbHAt-B_Fy-BoX5E_Cg
+                const apiKey = Api_Key;
                 
                 // Create a copy of the history specifically for the API
                 let apiHistory = [...chatHistory];
