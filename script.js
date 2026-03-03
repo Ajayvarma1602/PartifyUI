@@ -778,7 +778,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const maxRetries = 3;
                 let response;
                 
-                const apiKey = "AIzaSyBE7KkdS35cXG7xChPNihLzX-W0HB5YK2A";
+                const apiKey = "AIzaSyBZsNPsBwX5NXclSbHAt-B_Fy-BoX5E_Cg";
                 const payload = {
                     contents: chatHistory
                 };
